@@ -1,17 +1,22 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<h1>Фанфики</h1>
-<ul>
+<h1 class="mt-4">Фанфики</h1>
+<div class="row">
     {% for fanfic in fanfics %}
-    <li>
-        <h2>{{ fanfic.title }}</h2>
-        <p>Рейтинг: {{ fanfic.rating }}</p>
-        {% if fanfic.image %}
-        <img src="{{ fanfic.image.url }}" alt="{{ fanfic.title }}" width="100">
-        {% endif %}
-        <a href="{% url 'fanfic_detail' fanfic.pk %}">Читать</a>
-    </li>
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card" style="width: 15rem;">
+            {% if fanfic.image %}
+            <img src="{{ fanfic.image.url }}" class="card-img-top" alt="{{ fanfic.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ fanfic.title }}</h5>
+                <p class="card-text">{{ fanfic.description }}</p>
+                <p class="card-text">Рейтинг: {{ fanfic.rating }}</p>
+                <a href="{% url 'fanfic_detail' fanfic.pk %}" class="btn btn-primary">Читать</a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

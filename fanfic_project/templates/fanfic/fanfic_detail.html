@@ -1,15 +1,18 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<h2>{{ fanfic.title }}</h2>
-{% if fanfic.image %}
-<img src="{{ fanfic.image.url }}" alt="{{ fanfic.title }}" width="300">
-{% endif %}
-<p>{{ fanfic.description }}</p>
-<p>Рейтинг: {{ fanfic.rating }}</p>
-<p>{{ fanfic.content }}</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Нравится</button>
-</form>
+<div class="mt-4">
+    <h2>{{ fanfic.title }}</h2>
+    {% if fanfic.image %}
+    <img src="{{ fanfic.image.url }}" class="img-fluid mb-3" alt="{{ fanfic.title }}">
+    {% endif %}
+    <p>{{ fanfic.description }}</p>
+    <p>Рейтинг: {{ fanfic.rating }}</p>
+    <p>Теги: {{ fanfic.tags }}</p>
+    <div>{{ fanfic.content }}</div>
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Нравится</button>
+    </form>
+</div>
 {% endblock %}

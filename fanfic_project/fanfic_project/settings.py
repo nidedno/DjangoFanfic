@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-14$q(!ptfxf8@l#^(r*-!-wvzl5r3a7spdj7_&=z$(98wjx7=o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG is False:
     ALLOWED_HOSTS = [
@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'fanfic_project.wsgi.application'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_PORT = 25
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_email@gmail.com'
-EMAIL_HOST_PASSWORD = 'your_password'
+EMAIL_HOST_USER = 'fanfic.projects.urfu@gmail.com'
+EMAIL_HOST_PASSWORD = 'urfu12345678'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'logout'

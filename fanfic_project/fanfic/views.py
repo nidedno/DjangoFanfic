@@ -20,7 +20,7 @@ def create_fanfic(request):
             fanfic = form.save(commit=False)
             fanfic.user = request.user
             fanfic.save()
-            return redirect('home')
+            return redirect('my_fanfics')
     else:
         form = FanficForm()
     return render(request, 'fanfic/create_fanfic.html', {'form': form})
@@ -55,17 +55,22 @@ def search_fanfics(request):
         form = SearchForm()
     return render(request, 'fanfic/search_fanfics.html', {'form': form})
 
+def search_results(request):
+    query = request.GET.get('q')
+    fanfics = Fanfic.objects.filter(tags__icontains=query)
+    return render(request, 'fanfic/search_results.html', {'fanfics': fanfics})
+
 def contact(request):
     if request.method == 'POST':
-        message_name = request.POST['message-name']
-        message_email = request.POST['message-email']
+        message_name = request.POST['name']
+        message_email = request.POST['email']
         message = request.POST['message']
 
         send_mail(
             'Сообщение с сайта',
             message,
             message_email,
-            ['youremail@gmail.com'],
+            ['nidedno@gmail.com'],
         )
 
         return render(request, 'fanfic/contact.html', {'message_name': message_name})
@@ -109,3 +114,9 @@ def handler404(request, exception):
                               context_instance=RequestContext(request))
     response.status_code = 404
     return render(request, '404.html')
+
+def handler500(request):
+    response = render('500.html', {},
+                              context_instance=RequestContext(request))
+    response.status_code = 500
+    return render(request, '500.html')

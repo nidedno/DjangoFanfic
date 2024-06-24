@@ -1,10 +1,28 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<h1>Результаты поиска</h1>
-<ul>
-    {% for fanfic in fanfics %}
-    <li>{{ fanfic.title }} - {{ fanfic.description }}</li>
-    {% endfor %}
-</ul>
+<div class="mt-4">
+    <h2>Результаты поиска</h2>
+    {% if fanfics %}
+    <div class="row">
+        {% for fanfic in fanfics %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card">
+                {% if fanfic.image %}
+                <img src="{{ fanfic.image.url }}" class="card-img-top" alt="{{ fanfic.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ fanfic.title }}</h5>
+                    <p class="card-text">{{ fanfic.description }}</p>
+                    <p class="card-text">Рейтинг: {{ fanfic.rating }}</p>
+                    <a href="{% url 'fanfic_detail' fanfic.pk %}" class="btn btn-primary">Читать</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Ничего не найдено.</p>
+    {% endif %}
+</div>
 {% endblock %}

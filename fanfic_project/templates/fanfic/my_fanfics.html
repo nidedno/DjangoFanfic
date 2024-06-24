@@ -1,13 +1,14 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<h2>Мои фанфики</h2>
-<ul>
+<h2 class="mt-4">Мои фанфики</h2>
+<div class="list-group mt-3">
     {% for fanfic in fanfics %}
-    <li>
-        <h2><a href="{% url 'fanfic_detail' fanfic.pk %}">{{ fanfic.title }}</a></h2>
-        <a href="{% url 'delete_fanfic' fanfic.pk %}">Удалить</a>
-    </li>
+    <a href="{% url 'fanfic_detail' fanfic.pk %}" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">{{ fanfic.title }}</h5>
+        <p class="mb-1">{{ fanfic.description }}</p>
+    </a>
+    <a href="{% url 'delete_fanfic' fanfic.pk %}" class="btn btn-danger btn-sm mt-2">Удалить</a>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

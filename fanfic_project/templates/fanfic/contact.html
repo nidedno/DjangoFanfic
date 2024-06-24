@@ -1,15 +1,23 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<h1>Обратная связь</h1>
-<form method="post">
-    {% csrf_token %}
-    <label for="message-name">Имя</label>
-    <input type="text" id="message-name" name="message-name" required>
-    <label for="message-email">Email</label>
-    <input type="email" id="message-email" name="message-email" required>
-    <label for="message">Сообщение</label>
-    <textarea id="message" name="message" required></textarea>
-    <button type="submit">Отправить</button>
-</form>
+<div class="mt-4">
+    <h2>Обратная связь</h2>
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_name" class="form-label">Ваше имя:</label>
+            <input type="text" name="name" id="id_name" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="id_email" class="form-label">Ваш email:</label>
+            <input type="email" name="email" id="id_email" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="id_message" class="form-label">Сообщение:</label>
+            <textarea name="message" id="id_message" class="form-control" rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
 {% endblock %}
