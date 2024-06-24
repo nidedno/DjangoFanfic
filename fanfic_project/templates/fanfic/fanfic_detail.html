@@ -1,48 +1,35 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<div class="mt-4">
-    <h2>{{ fanfic.title }}</h2>
-    {% if fanfic.image %}
-    <img src="{{ fanfic.image.url }}" class="img-fluid mb-3" alt="{{ fanfic.title }}">
-    {% endif %}
-    <p>{{ fanfic.description }}</p>
-    <p>Рейтинг: {{ fanfic.rating }}</p>
-    
-    <div id="chapters">
-        {% for chapter in chapters %}
-        <div class="chapter" style="display: none;">
-            <p>{{ chapter }}</p>
+<div class="row mt-4">
+    <!-- Левая колонка с деталями фанфика -->
+    <div class="col-md-4">
+        <h2>{{ fanfic.title }}</h2>
+        {% if fanfic.image %}
+        <img src="{{ fanfic.image.url }}" class="img-fluid" alt="{{ fanfic.title }}" style="width: 244px; height: 366px; border: 2px solid">
+        {% endif %}
+        <div class="mt-3">
+            <p><strong>Описание:</strong> {{ fanfic.description }}</p>
+            <p><strong>Тэги:</strong> {{ fanfic.tags }}</p>
+            <p><strong>Автор:</strong> {{ fanfic.user }}</p>
+            <p><strong>Лайков:</strong> {{ fanfic.rating }}</p>
         </div>
-        {% endfor %}
+        <form method="post" action="{% url 'increase_rating' fanfic.pk %}" class="mt-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Нравится</button>
+        </form>
     </div>
-
-    <button id="read-more" class="btn btn-primary mt-3">Читать дальше</button>
-
-    <form method="post" action="{% url 'increase_rating' fanfic.pk %}" class="mt-3">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Нравится</button>
-    </form>
+    
+    <!-- Правая колонка со списком глав -->
+    <div class="col-md-8">
+        <h3>Главы</h3>
+        <ul class="list-group">
+            {% for chapter in fanfic.chapters.all %}
+            <li class="list-group-item">
+                <a href="{% url 'chapter_detail' fanfic.pk chapter.pk %}">{{ chapter.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let chapters = document.querySelectorAll(".chapter");
-        let readMoreButton = document.getElementById("read-more");
-        let chapterIndex = 0;
-
-        function showNextChapter() {
-            if (chapterIndex < chapters.length) {
-                chapters[chapterIndex].style.display = "block";
-                chapterIndex++;
-                if (chapterIndex >= chapters.length) {
-                    readMoreButton.style.display = "none";
-                }
-            }
-        }
-
-        readMoreButton.addEventListener("click", showNextChapter);
-        showNextChapter(); // Show the first chapter on page load
-    });
-</script>
 {% endblock %}

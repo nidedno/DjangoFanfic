@@ -16,7 +16,7 @@
                 <p class="card-text">{{ fanfic.description }}</p>
                 <p class="card-text">Рейтинг: {{ fanfic.rating }}</p>
                 <a href="{% url 'fanfic_detail' fanfic.pk %}" class="btn btn-primary mt-auto">Читать</a>
-                <form method="post" action="{% url 'delete_fanfic' fanfic.pk %}" class="mt-2">
+                <form method="post" action="{% url 'delete_fanfic' fanfic.pk %}" class="mt-2 m-auto">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">Удалить</button>
                 </form>

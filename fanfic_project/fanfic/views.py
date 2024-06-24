@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Fanfic
+from .models import Fanfic, Chapter
 from .forms import FanficForm, SearchForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -20,6 +20,13 @@ def create_fanfic(request):
             fanfic = form.save(commit=False)
             fanfic.user = request.user
             fanfic.save()
+
+            # Разбиение описания на главы по 1000 символов
+            content = fanfic.content
+            chapters = [content[i:i + 1000] for i in range(0, len(content), 1000)]
+            for i, chapter_content in enumerate(chapters):
+                Chapter.objects.create(fanfic=fanfic, title=f'Глава {i + 1}', content=chapter_content)
+
             return redirect('my_fanfics')
     else:
         form = FanficForm()
@@ -32,8 +39,23 @@ def my_fanfics(request):
 
 def fanfic_detail(request, pk):
     fanfic = get_object_or_404(Fanfic, pk=pk)
-    chapters = [fanfic.content[i:i+500] for i in range(0, len(fanfic.content), 500)]
-    return render(request, 'fanfic/fanfic_detail.html', {'fanfic': fanfic, 'chapters': chapters})
+    return render(request, 'fanfic/fanfic_detail.html', {'fanfic': fanfic})
+
+def chapter_detail(request, fanfic_pk, chapter_pk):
+    fanfic = get_object_or_404(Fanfic, pk=fanfic_pk)
+    chapter = get_object_or_404(Chapter, pk=chapter_pk)
+    chapters = list(fanfic.chapters.all())
+    current_index = chapters.index(chapter)
+    prev_chapter = chapters[current_index - 1] if current_index > 0 else None
+    next_chapter = chapters[current_index + 1] if current_index < len(chapters) - 1 else None
+    context = {
+        'fanfic': fanfic,
+        'chapter': chapter,
+        'prev_chapter': prev_chapter,
+        'next_chapter': next_chapter,
+    }
+    return render(request, 'fanfic/chapter_detail.html', context)
+
 
 def increase_rating(request, pk):
     fanfic = get_object_or_404(Fanfic, pk=pk)

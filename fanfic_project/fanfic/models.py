@@ -9,6 +9,14 @@ class Fanfic(models.Model):
     image = models.ImageField(upload_to='fanfic_images/', blank=True, null=True)
     tags = models.CharField(default='Гарем, Юри', max_length=400)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.title
+
+class Chapter(models.Model):
+    fanfic = models.ForeignKey(Fanfic, related_name='chapters', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
 
     def __str__(self):
         return self.title

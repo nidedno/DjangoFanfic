@@ -1,0 +1,21 @@
+{% extends 'fanfic/base_generic.html' %}
+
+{% block content %}
+<div class="mt-4">
+    <h2>{{ chapter.title }}</h2>
+    <p>{{ chapter.content }}</p>
+    <div class="d-flex justify-content-between mt-4">
+        {% if prev_chapter %}
+        <a href="{% url 'chapter_detail' fanfic.pk prev_chapter.pk %}" class="btn btn-secondary">Назад</a>
+        {% else %}
+        <button class="btn btn-secondary" disabled>Назад</button>
+        {% endif %}
+        <a href="{% url 'fanfic_detail' fanfic.pk %}" class="btn btn-primary">К фанфику</a>
+        {% if next_chapter %}
+        <a href="{% url 'chapter_detail' fanfic.pk next_chapter.pk %}" class="btn btn-secondary">Вперед</a>
+        {% else %}
+        <button class="btn btn-secondary" disabled>Вперед</button>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
