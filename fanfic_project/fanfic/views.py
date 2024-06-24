@@ -32,10 +32,14 @@ def my_fanfics(request):
 
 def fanfic_detail(request, pk):
     fanfic = get_object_or_404(Fanfic, pk=pk)
-    if request.method == 'POST':
-        fanfic.rating += 1
-        fanfic.save()
-    return render(request, 'fanfic/fanfic_detail.html', {'fanfic': fanfic})
+    chapters = [fanfic.content[i:i+500] for i in range(0, len(fanfic.content), 500)]
+    return render(request, 'fanfic/fanfic_detail.html', {'fanfic': fanfic, 'chapters': chapters})
+
+def increase_rating(request, pk):
+    fanfic = get_object_or_404(Fanfic, pk=pk)
+    fanfic.rating += 1
+    fanfic.save()
+    return redirect('fanfic_detail', pk=pk)
 
 @login_required
 def delete_fanfic(request, pk):

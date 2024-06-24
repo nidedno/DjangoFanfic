@@ -1,14 +1,28 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<h2 class="mt-4">Мои фанфики</h2>
-<div class="list-group mt-3">
+<h1 class="mt-4">Мои фанфики</h1>
+<div class="row">
     {% for fanfic in fanfics %}
-    <a href="{% url 'fanfic_detail' fanfic.pk %}" class="list-group-item list-group-item-action">
-        <h5 class="mb-1">{{ fanfic.title }}</h5>
-        <p class="mb-1">{{ fanfic.description }}</p>
-    </a>
-    <a href="{% url 'delete_fanfic' fanfic.pk %}" class="btn btn-danger btn-sm mt-2">Удалить</a>
+    <div class="col-md-6 col-lg-2 mb-4 d-flex align-items-stretch">
+        <div class="card">
+            {% if fanfic.image %}
+            <div class="card-img-container">
+                <img src="{{ fanfic.image.url }}" class="card-img-top" alt="{{ fanfic.title }}">
+            </div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ fanfic.title }}</h5>
+                <p class="card-text">{{ fanfic.description }}</p>
+                <p class="card-text">Рейтинг: {{ fanfic.rating }}</p>
+                <a href="{% url 'fanfic_detail' fanfic.pk %}" class="btn btn-primary mt-auto">Читать</a>
+                <form method="post" action="{% url 'delete_fanfic' fanfic.pk %}" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}

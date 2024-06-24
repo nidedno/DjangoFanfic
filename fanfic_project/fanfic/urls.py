@@ -7,6 +7,7 @@ urlpatterns = [
     path('my_fanfics/', views.my_fanfics, name='my_fanfics'),
     path('fanfic/<int:pk>/', views.fanfic_detail, name='fanfic_detail'),
     path('fanfic/<int:pk>/delete/', views.delete_fanfic, name='delete_fanfic'),
+    path('fanfic/<int:pk>/rate/', views.increase_rating, name='increase_rating'),
     path('search/', views.search_fanfics, name='search_fanfics'),
     path('search/results/', views.search_results, name='search_results'),
     path('contact/', views.contact, name='contact'),
