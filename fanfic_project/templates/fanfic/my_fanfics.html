@@ -1,0 +1,13 @@
+{% extends 'fanfic/base_generic.html' %}
+
+{% block content %}
+<h2>Мои фанфики</h2>
+<ul>
+    {% for fanfic in fanfics %}
+    <li>
+        <h2><a href="{% url 'fanfic_detail' fanfic.pk %}">{{ fanfic.title }}</a></h2>
+        <a href="{% url 'delete_fanfic' fanfic.pk %}">Удалить</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

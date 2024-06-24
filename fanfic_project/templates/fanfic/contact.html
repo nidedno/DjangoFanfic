@@ -1,0 +1,15 @@
+{% extends 'fanfic/base_generic.html' %}
+
+{% block content %}
+<h1>Обратная связь</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="message-name">Имя</label>
+    <input type="text" id="message-name" name="message-name" required>
+    <label for="message-email">Email</label>
+    <input type="email" id="message-email" name="message-email" required>
+    <label for="message">Сообщение</label>
+    <textarea id="message" name="message" required></textarea>
+    <button type="submit">Отправить</button>
+</form>
+{% endblock %}

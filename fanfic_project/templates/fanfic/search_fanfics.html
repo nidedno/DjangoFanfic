@@ -1,0 +1,9 @@
+{% extends 'fanfic/base_generic.html' %}
+
+{% block content %}
+<h1>Поиск фанфиков</h1>
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Поиск</button>
+</form>
+{% endblock %}
