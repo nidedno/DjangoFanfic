@@ -11,41 +11,41 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">Fanfic Site</a>
+            <a class="navbar-brand" href="{% url 'home' %}">Фанфики</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link" href="{% url 'home' %}">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create_fanfic' %}">Create Fanfic</a>
+                        <a class="nav-link" href="{% url 'create_fanfic' %}">Создать</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_fanfics' %}">My Fanfics</a>
+                        <a class="nav-link" href="{% url 'my_fanfics' %}">Библиотека</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'search_fanfics' %}">Search Fanfics</a>
+                        <a class="nav-link" href="{% url 'search_fanfics' %}">Поиск</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                        <a class="nav-link" href="{% url 'contact' %}">Обратная связь</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link" href="{% url 'login' %}">Войти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                            <a class="nav-link" href="{% url 'signup' %}">Регистрация</a>
                         </li>
                     {% endif %}
                 </ul>

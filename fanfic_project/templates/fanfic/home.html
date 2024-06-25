@@ -1,24 +1,42 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<h1 class="mt-4">Фанфики</h1>
-<div class="row">
-    {% for fanfic in fanfics %}
-    <div class="col-md-4 col-lg-2 mb-1 d-flex align-items-stretch">
-        <div class="card" style="padding: 5px">
-            {% if fanfic.image %}
-            <div class="card-img-container">
-                <img src="{{ fanfic.image.url }}" class="card-img-top" alt="{{ fanfic.title }}">
-            </div>
-            {% endif %}
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">{{ fanfic.title }}</h5>
-                <p class="card-text">{{ fanfic.description }}</p>
-                <p class="card-text">Рейтинг: {{ fanfic.rating }}</p>
-                <a href="{% url 'fanfic_detail' fanfic.pk %}" class="btn btn-primary mt-auto">Читать</a>
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="row">
+        <h2 class="text-center">Последние фанфики</h2>
+        {% for fanfic in fanfics %}
+        <div class="col-12 mb-4">
+            <div class="row">
+                {% if forloop.counter0|divisibleby:2 %}
+                <div class="mb-4 mt-4 row d-flex justify-content-center">
+                    <div class="col-md-4">
+                        <img src="{{ fanfic.image.url }}" class="img-fluid rounded" alt="{{ fanfic.title }}" style="height: 200px; width:200px;object-fit: cover;">
+                    </div>
+                    <div class="col-md-4">
+                        <h3>{{ fanfic.title }}</h3>
+                        <p>{{ fanfic.tags }}</p>
+                        <p>Рейтинг: {{ fanfic.rating }}</p>
+                        <p>Автор: {{ fanfic.user }}</p>
+                        <a href="{% url 'fanfic_detail' fanfic.pk %}" class="btn btn-dark">Читать</a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="mb-4 mt-4 row d-flex justify-content-center">
+                    <div class="col-md-4 order-md-1 order-2">
+                        <h3>{{ fanfic.title }}</h3>
+                        <p>{{ fanfic.tags }}</p>
+                        <p>Рейтинг: {{ fanfic.rating }}</p>
+                        <p>Автор: {{ fanfic.user }}</p>
+                        <a href="{% url 'fanfic_detail' fanfic.pk %}" class="btn btn-dark">Читать</a>
+                    </div>
+                    <div class="col-md-4 order-md-2 order-1">
+                        <img src="{{ fanfic.image.url }}" class="img-fluid rounded" alt="{{ fanfic.title }}" style="height: 200px; width:200px ;object-fit: cover;">
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}

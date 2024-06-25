@@ -1,31 +1,31 @@
 {% extends 'fanfic/base_generic.html' %}
 
 {% block content %}
-<div class="mt-4">
-    <h2>Создать фанфик</h2>
+<div class="mt-4 mb-4">
+    <h2 class="text-center">Создать фанфик</h2>
     <form method="post" enctype="multipart/form-data" class="mt-3">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="id_title" class="form-label">Название:</label>
+            <label for="id_title" class="form-label"><b>Название:</b></label>
             {{ form.title }}
         </div>
         <div class="mb-3">
-            <label for="id_description" class="form-label">Описание:</label>
+            <label for="id_description" class="form-label"><b>Описание:</b></label>
             {{ form.description }}
         </div>
         <div class="mb-3">
-            <label for="id_content" class="form-label">Контент:</label>
+            <label for="id_content" class="form-label"><b>Контент:</b></label>
             {{ form.content }}
         </div>
         <div class="mb-3">
-            <label for="id_tags" class="form-label">Теги:</label>
+            <label for="id_tags" class="form-label"><b>Теги:</b></label>
             {{ form.tags }}
         </div>
         <div class="mb-3">
-            <label for="id_image" class="form-label">Изображение:</label>
+            <label for="id_image" class="form-label"><b>Изображение:</b</label>
             {{ form.image }}
         </div>
-        <button type="submit" class="btn btn-primary">Создать</button>
+        <button type="submit" class="btn btn-dark">Создать</button>
     </form>
 </div>
 {% endblock %}
